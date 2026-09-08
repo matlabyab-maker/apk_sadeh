@@ -45,6 +45,8 @@ jobs:
           test -f app/src/main/AndroidManifest.xml
           test -f app/src/main/java/com/fastradio/lite/MainActivity.java
           echo "Project files OK"
+          echo "Gradle:"
+          gradle --version
 
       - name: Build Debug APK
         run: gradle :app:assembleDebug --no-daemon --stacktrace
