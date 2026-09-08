@@ -1,9 +1,10 @@
-FastRadio Lite
+FastRadio Lite — minimal Android project
 
-1. Upload all files to a GitHub repository.
-2. Open Actions.
-3. Select Build Lightweight APK.
-4. Run workflow (or push to main/master).
-5. After success, open the run and download FastRadio-Lite-APK.
+GitHub:
+1. Put these files in the repository root.
+2. Confirm .github/workflows/build-apk.yml exists.
+3. Open Actions.
+4. Run "Build Lightweight APK".
+5. After Success, download the FastRadio-Lite-APK artifact.
 
-The project intentionally has no external Android dependencies.
+The app has no AndroidX or third-party runtime dependencies.

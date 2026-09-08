@@ -8,13 +8,15 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     @Override
-    public void onCreate(Bundle state) {
-        super.onCreate(state);
-        TextView t = new TextView(this);
-        t.setText("Fast Radio");
-        t.setTextSize(26);
-        t.setTextColor(Color.BLACK);
-        t.setGravity(Gravity.CENTER);
-        setContentView(t);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        TextView text = new TextView(this);
+        text.setText("Fast Radio");
+        text.setTextSize(28);
+        text.setTextColor(Color.BLACK);
+        text.setGravity(Gravity.CENTER);
+
+        setContentView(text);
     }
 }
