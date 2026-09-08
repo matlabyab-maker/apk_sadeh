@@ -1,6 +1,12 @@
-Fast Radio Lite
+FastRadio Lite - GitHub Actions Android project
 
-Minimal Android project prepared for GitHub Actions.
-The workflow builds a debug APK and uploads it as an artifact named FastRadio-Lite-APK.
+IMPORTANT:
+The GitHub workflow replaces gradle/wrapper/gradle-wrapper.jar with the
+official Gradle 8.7 wrapper binary before building. This avoids any broken
+or incomplete wrapper JAR that may have been uploaded from a phone.
 
-Use the project files at the repository root. Do not upload this ZIP file itself into the repository.
+Upload/extract the project files into the repository root.
+Then open Actions and run "Build Fast Radio APK".
+
+The generated APK is:
+app/build/outputs/apk/debug/app-debug.apk
