@@ -1,4 +1,4 @@
-name: Build Lightweight APK
+name: Build APK - Diagnostic
 
 on:
   workflow_dispatch:
@@ -27,9 +27,8 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android platform and build tools
+      - name: Install Android SDK packages
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
           sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Set up Gradle 8.7
@@ -37,18 +36,42 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Verify project files
+      - name: Show project structure
         run: |
-          test -f settings.gradle
-          test -f build.gradle
-          test -f app/build.gradle
-          test -f app/src/main/AndroidManifest.xml
-          test -f app/src/main/java/com/fastradio/lite/MainActivity.java
+          echo "===== PROJECT FILES ====="
+          find . -maxdepth 5 -type f | sort
+          echo "===== ROOT SETTINGS ====="
+          cat settings.gradle
+          echo "===== ROOT BUILD ====="
+          cat build.gradle
+          echo "===== APP BUILD ====="
+          cat app/build.gradle
 
-      - name: Build APK
-        run: gradle :app:assembleDebug --no-daemon --stacktrace
+      - name: Check Android SDK
+        run: |
+          echo "===== ANDROID SDK ====="
+          sdkmanager --list_installed
+          echo "===== JAVA ====="
+          java -version
+          echo "===== GRADLE ====="
+          gradle --version
+
+      - name: Build APK and show full error
+        run: |
+          set +e
+          gradle :app:assembleDebug --no-daemon --stacktrace --info
+          STATUS=$?
+          echo "===== GRADLE EXIT CODE: $STATUS ====="
+          exit $STATUS
+
+      - name: List generated APKs
+        if: always()
+        run: |
+          echo "===== APK FILES ====="
+          find app/build -type f \( -name "*.apk" -o -name "*.aab" \) -print 2>/dev/null || true
 
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: FastRadio-Lite-APK
