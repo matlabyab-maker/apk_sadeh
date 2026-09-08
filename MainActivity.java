@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         TextView text = new TextView(this);
@@ -16,6 +16,7 @@ public class MainActivity extends Activity {
         text.setTextSize(28);
         text.setTextColor(Color.BLACK);
         text.setGravity(Gravity.CENTER);
+        text.setBackgroundColor(Color.WHITE);
 
         setContentView(text);
     }
